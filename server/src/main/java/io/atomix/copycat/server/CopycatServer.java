@@ -32,6 +32,7 @@ import io.atomix.copycat.protocol.ClientRequestTypeResolver;
 import io.atomix.copycat.protocol.ClientResponseTypeResolver;
 import io.atomix.copycat.server.cluster.Cluster;
 import io.atomix.copycat.server.cluster.Member;
+import io.atomix.copycat.server.db.IKeyValueDB;
 import io.atomix.copycat.server.state.ConnectionManager;
 import io.atomix.copycat.server.state.ServerContext;
 import io.atomix.copycat.server.storage.Log;

@@ -22,6 +22,10 @@
     <version>1.2.9-SNAPSHOT</version>
   </parent>
 
+  <properties>
+    <rocksdb.version>5.15.10</rocksdb.version>
+  </properties>
+
   <packaging>bundle</packaging>
   <artifactId>copycat-server</artifactId>
   <name>Copycat Server</name>
@@ -31,6 +35,11 @@
       <groupId>io.atomix.copycat</groupId>
       <artifactId>copycat-protocol</artifactId>
       <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.rocksdb</groupId>
+      <artifactId>rocksdbjni</artifactId>
+      <version>${rocksdb.version}</version>
     </dependency>
     <dependency>
       <groupId>io.atomix.catalyst</groupId>

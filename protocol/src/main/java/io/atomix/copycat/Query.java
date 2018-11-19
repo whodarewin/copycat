@@ -46,6 +46,8 @@ package io.atomix.copycat;
  */
 public interface Query<T> extends Operation<T> {
 
+  //todo:add new state,just search,no log
+
   /**
    * Constants for specifying Raft {@link Query} consistency levels.
    * <p>
@@ -58,6 +60,15 @@ public interface Query<T> extends Operation<T> {
    * @author <a href="http://github.com/kuujo">Jordan Halterman</a>
    */
   enum ConsistencyLevel {
+
+    /**
+     * do not enforce anything,random read.
+     * <p>
+     * when a random {@link Query} is submitted to the cluster,the first server that receives the query will handle it,
+     * the server will not await more entries when the query has not advanced past the provided client index,just return
+     * the value that server has.
+     */
+    RANDOM,
 
     /**
      * Enforces sequential query consistency.

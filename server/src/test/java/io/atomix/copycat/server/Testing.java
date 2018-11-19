@@ -15,6 +15,8 @@
  */
 package io.atomix.copycat.server;
 
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 import java.util.stream.Stream;
 
 /**
@@ -50,5 +52,16 @@ public final class Testing {
     } catch (Throwable e) {
       throw new UncheckedException(e);
     }
+  }
+
+
+  public static void main(String[] args) throws ExecutionException, InterruptedException {
+    CompletableFuture<Integer> future = CompletableFuture.supplyAsync(() -> 100);
+
+    future.thenCombine(CompletableFuture.supplyAsync(() -> 200), (r, c) ->
+            {
+              System.out.println(r+c);
+              return r+c;
+            }).thenAccept(result -> System.out.println(result));
   }
 }

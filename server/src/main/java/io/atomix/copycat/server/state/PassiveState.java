@@ -257,6 +257,11 @@ class PassiveState extends ReserveState {
         .setSession(request.session())
         .setSequence(request.sequence())
         .setQuery(request.query());
+      // just search and return!
+      if( request.query().consistency() == Query.ConsistencyLevel.RANDOM){
+        CompletableFuture<QueryResponse> future = new CompletableFuture<>();
+        return applyQuery(entry,future);
+      }
 
       return queryLocal(entry).thenApply(this::logResponse);
     } else {

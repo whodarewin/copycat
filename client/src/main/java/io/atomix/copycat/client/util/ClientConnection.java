@@ -54,6 +54,8 @@ public class ClientConnection implements Connection {
   private final Map<Class<?>, Function> handlers = new ConcurrentHashMap<>();
   private Connection connection;
   private boolean open = true;
+  //和所有的服务端的链接
+  private Collection<Connection> connections;
 
   public ClientConnection(String id, Client client, AddressSelector selector) {
     this.id = Assert.notNull(id, "id");

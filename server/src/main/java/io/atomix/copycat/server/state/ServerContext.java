@@ -516,6 +516,7 @@ public class ServerContext implements AutoCloseable {
   public void connectClient(Connection connection) {
     threadContext.checkThread();
 
+    //register all type request handler
     // Note we do not use method references here because the "state" variable changes over time.
     // We have to use lambdas to ensure the request handler points to the current state.
     connection.handler(RegisterRequest.class, (Function<RegisterRequest, CompletableFuture<RegisterResponse>>) request -> state.register(request));

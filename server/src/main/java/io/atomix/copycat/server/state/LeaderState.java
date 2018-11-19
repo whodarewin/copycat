@@ -570,6 +570,7 @@ final class LeaderState extends ActiveState {
       return queryLinearizable(entry);
 
     switch (consistency) {
+      case RANDOM:
       case SEQUENTIAL:
         return queryLocal(entry);
       case LINEARIZABLE_LEASE:
