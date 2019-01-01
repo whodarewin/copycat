@@ -37,7 +37,7 @@ package io.atomix.copycat;
  * Java serialization. However, default serialization in slow because it requires the full class name and does not allocate
  * memory efficiently. For this reason, it's recommended that commands implement {@link io.atomix.catalyst.serializer.CatalystSerializable}
  * or register a custom {@link io.atomix.catalyst.serializer.TypeSerializer} for better performance. Serializable types
- * can be registered on the associated client/server {@link io.atomix.catalyst.serializer.Serializer} instance.
+ * can be registered on the associated client/serzver {@link io.atomix.catalyst.serializer.Serializer} instance.
  *
  * @see ConsistencyLevel
  *

@@ -563,6 +563,7 @@ public interface CopycatClient {
     private ConnectionStrategy connectionStrategy = ConnectionStrategies.ONCE;
     private ServerSelectionStrategy serverSelectionStrategy = ServerSelectionStrategies.ANY;
     private RecoveryStrategy recoveryStrategy = RecoveryStrategies.CLOSE;
+    private BalanceKeyGetter getter;
 
     private Builder(Collection<Address> cluster) {
       this.cluster = Assert.notNull(cluster, "cluster");
@@ -676,6 +677,11 @@ public interface CopycatClient {
       return this;
     }
 
+    public Builder withBalanceGetter(BalanceKeyGetter getter){
+      this.getter = Assert.notNull(getter,"BalanceKeyGetter");
+      return this;
+    }
+
     /**
      * @throws ConfigurationException if transport is not configured and {@code io.atomix.catalyst.transport.netty.NettyTransport}
      * is not found on the classpath
@@ -711,7 +717,8 @@ public interface CopycatClient {
         connectionStrategy,
         recoveryStrategy,
         sessionTimeout,
-        unstabilityTimeout
+        unstabilityTimeout,
+        getter
       );
     }
   }

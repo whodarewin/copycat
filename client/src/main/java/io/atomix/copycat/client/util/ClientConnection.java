@@ -21,6 +21,8 @@ import io.atomix.catalyst.transport.Client;
 import io.atomix.catalyst.transport.Connection;
 import io.atomix.catalyst.transport.TransportException;
 import io.atomix.catalyst.util.Assert;
+import io.atomix.copycat.client.BalanceKeyGetter;
+import io.atomix.copycat.client.ClientConnectionManager;
 import io.atomix.copycat.error.CopycatError;
 import io.atomix.copycat.protocol.ConnectRequest;
 import io.atomix.copycat.protocol.ConnectResponse;
@@ -54,13 +56,14 @@ public class ClientConnection implements Connection {
   private final Map<Class<?>, Function> handlers = new ConcurrentHashMap<>();
   private Connection connection;
   private boolean open = true;
-  //和所有的服务端的链接
-  private Collection<Connection> connections;
+  private ClientConnectionManager connectionManager;
+  private BalanceKeyGetter keyGetter;
 
-  public ClientConnection(String id, Client client, AddressSelector selector) {
+  public ClientConnection(String id, Client client, AddressSelector selector,BalanceKeyGetter keyGetter) {
     this.id = Assert.notNull(id, "id");
     this.client = Assert.notNull(client, "client");
     this.selector = Assert.notNull(selector, "selector");
+    this.keyGetter = Assert.notNull(keyGetter,"BalanceKeyGetter");
   }
 
   /**

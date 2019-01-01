@@ -79,7 +79,7 @@ final class ClientSessionManager {
   }
 
   /**
-   * Registers a session.
+   * Registers a session to the cluster .
    */
   private void register(RegisterAttempt attempt) {
     state.getLogger().debug("Registering session: attempt {}", attempt.attempt);

@@ -34,6 +34,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 
 /**
+ * session that between client and cluster
  * Handles submitting state machine {@link Command commands} and {@link Query queries} to the Copycat cluster.
  * <p>
  * The client session is responsible for maintaining a client's connection to a Copycat cluster and coordinating

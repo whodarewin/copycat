@@ -67,8 +67,13 @@ public class DefaultCopycatClient implements CopycatClient {
   private final Set<StateChangeListener> changeListeners = new CopyOnWriteArraySet<>();
   private final Set<EventListener<?>> eventListeners = new CopyOnWriteArraySet<>();
   private Listener<Session.State> changeListener;
+  private BalanceKeyGetter getter;
 
-  DefaultCopycatClient(String clientId, Collection<Address> cluster, Transport transport, ThreadContext ioContext, ThreadContext eventContext, ServerSelectionStrategy selectionStrategy, ConnectionStrategy connectionStrategy, RecoveryStrategy recoveryStrategy, Duration sessionTimeout, Duration unstabilityTimeout) {
+  DefaultCopycatClient(String clientId, Collection<Address> cluster, Transport transport,
+                       ThreadContext ioContext, ThreadContext eventContext,
+                       ServerSelectionStrategy selectionStrategy, ConnectionStrategy connectionStrategy,
+                       RecoveryStrategy recoveryStrategy, Duration sessionTimeout,
+                       Duration unstabilityTimeout,BalanceKeyGetter getter) {
     this.clientId = Assert.notNull(clientId, "clientId");
     this.cluster = Assert.notNull(cluster, "cluster");
     this.transport = Assert.notNull(transport, "transport");
@@ -78,7 +83,8 @@ public class DefaultCopycatClient implements CopycatClient {
     this.connectionStrategy = Assert.notNull(connectionStrategy, "connectionStrategy");
     this.recoveryStrategy = Assert.notNull(recoveryStrategy, "recoveryStrategy");
     this.sessionTimeout = Assert.notNull(sessionTimeout, "sessionTimeout");
-    this.unstabilityTimeout = Assert.notNull(unstabilityTimeout, "unstabilityTimeout");;
+    this.unstabilityTimeout = Assert.notNull(unstabilityTimeout, "unstabilityTimeout");
+    this.getter = getter;
   }
 
   @Override
